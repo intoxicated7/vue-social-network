@@ -5,7 +5,7 @@ import { useField } from 'vee-validate'
 import * as yup from 'yup'
 import { ref } from '@vue/reactivity'
 
-const { register } = useAuth()
+const { login, isLoggedIn } = useAuth()
 
 const router = useRouter()
 
@@ -27,10 +27,11 @@ const password = ref<string>('')
 //   yup.string().required().min(passLength.value)
 // )
 
-const handleSignup = async () => {
+const handleLogin = async () => {
   try {
-    await register({ email: email.value, password: password.value })
-    // router.push('/')
+    await login({ email: email.value, password: password.value })
+    console.log('authorized')
+    console.log(isLoggedIn())
   } catch(error) {
     alert(error.message)
   }
@@ -42,7 +43,7 @@ const handleSignup = async () => {
   <div class="mt-60">
     <div class="wrapper bg-slate-800 rounded-md p-3">
       <div class="text-center text-white font-semibold mb-3">
-        <h2 class="text-2xl">Форма регистрации</h2>
+        <h2 class="text-2xl">Форма авторизации</h2>
       </div>
       <form class="space-y-3">
         <div>
@@ -50,12 +51,15 @@ const handleSignup = async () => {
           <!-- <span>{{ errorUsername }}</span> -->
         </div>
         <div>
-          <input class="rounded-md w-full p-1.5 px-2 text-sm bg-slate-600" name="password" v-model="password" type="password" placeholder="Придумайте пароль" />
+          <input class="rounded-md w-full p-1.5 px-2 text-sm bg-slate-600" name="password" v-model="password" type="password" placeholder="Ваш пароль" />
           <!-- <span>{{ errorPassword }}</span> -->
-          <span style="font-size: 12px" class="text-white float-right mb-4">У меня уже есть аккаунт</span>
+          <div class="flex justify-between items-center">
+            <span style="font-size: 12px" class="text-white float-right mb-4">Забыл пароль</span>
+            <span style="font-size: 12px" class="text-white float-right mb-4">Создать аккаунт</span>
+          </div>
         </div>
         <div class="text-center">
-          <button @click.prevent="handleSignup" class="rounded-md w-full p-1.5 bg-emerald-500 text-white text-sm font-semibold">Зарегистрироваться</button>
+          <button @click.prevent="handleLogin" class="rounded-md w-full p-1.5 bg-emerald-500 text-white text-sm font-semibold">Авторизоваться</button>
         </div>
       </form>
     </div>
