@@ -1,14 +1,14 @@
 import useDatabase from './sb-hooks-db'
-import { AuthData } from '../types'
+import { AuthData, UserType } from '../types'
 import { ref } from 'vue'
 
-const user = ref(null)
+const user = ref<UserType | null>(null)
 
 export default function useAuth() {
 
   const { db }  = useDatabase()
 
-  const register = async({ email, password }: AuthData) => {
+  const register = async ({ email, password }: AuthData) => {
     const { user, error } = await db.auth.signUp(
       { email, password }
     )

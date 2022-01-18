@@ -25,6 +25,22 @@ const routes = [
       await logout()
       return { name: 'Login' }
     }
+  },
+  {
+    name: 'Me',
+    path: '/me',
+    // beforeEnter: () => {
+
+    // }
+    component: () => import('../views/Me.vue')
+  },
+  {
+    name: 'Feed',
+    path: '/feed',
+    // beforeEnter: () => {
+
+    // }
+    component: () => import('../views/Feed.vue')
   }
 ]
 

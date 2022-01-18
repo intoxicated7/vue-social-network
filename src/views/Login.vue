@@ -5,15 +5,14 @@ import { useField } from 'vee-validate'
 import * as yup from 'yup'
 import { ref } from '@vue/reactivity'
 
-const { login, isLoggedIn } = useAuth()
+const { login } = useAuth()
 
 const router = useRouter()
-
 
 const email = ref<string>('')
 const password = ref<string>('')
 
-// form options
+
 // const userLength = ref<number>(6)
 // const passLength = ref<number>(8)
 
@@ -30,8 +29,7 @@ const password = ref<string>('')
 const handleLogin = async () => {
   try {
     await login({ email: email.value, password: password.value })
-    console.log('authorized')
-    console.log(isLoggedIn())
+    router.push('/me')
   } catch(error) {
     alert(error.message)
   }
