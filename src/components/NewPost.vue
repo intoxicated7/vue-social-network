@@ -11,6 +11,7 @@ let author_id = user.value?.id
 
 const handlePostAdding = async () => {
   await addPost({ body: body.value, author_id: author_id })
+  body.value = ''
 }
 </script>
 

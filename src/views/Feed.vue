@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import usePosts from '../hooks/sb-hooks-posts'
+import { defineAsyncComponent } from 'vue'
 
-const { posts } = usePosts()
+const PostsComponent = defineAsyncComponent(() => 
+  import('../components/Posts.vue')
+)
 
-
-console.log(posts)
 </script>
 
 <template>
-  <div v-for="post in posts" :key="post">
-    <!-- {{ post }} -->
-  </div>
-  <div></div>
+<Suspense>
+  <template #default>
+    <PostsComponent />
+  </template>
+  <template #fallback>
+    <div class="text-white">
+      Загрузка...
+    </div>
+  </template>
+</Suspense>
 </template>

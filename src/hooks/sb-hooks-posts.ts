@@ -8,10 +8,13 @@ export default function usePosts() {
 
   const { db } = useDatabase()
 
-  const posts = db
-    .from('posts')
-    .select(`id, body, created_at, author_id`)
-    .order('created_at')
+  const getPosts = async () => {
+    const { data } = await db
+      .from('posts')
+      .select('*')
+      .order('created_at', { ascending: false })
+    return data
+  }
 
   const addPost = async ({ body, author_id }: PostType) => {
     return await db
@@ -24,9 +27,8 @@ export default function usePosts() {
   const myPosts = async () => {
     return await db
       .from('posts')
-      .select('id, body, created_at, author_id')
-      .eq('id', 6)
+      .select('id')
   }
 
-  return { posts, addPost, myPosts }
+  return { getPosts, addPost, myPosts }
 }

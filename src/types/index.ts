@@ -1,3 +1,5 @@
+import { string } from 'yup'
+
 export type UserType = {
   id: number,
   email: string,
@@ -12,4 +14,9 @@ export type AuthData = {
 export type PostType = {
   body: string,
   author_id: any
+}
+
+export type LikeType = {
+  user_id: string,
+  post_id: number
 }
