@@ -6,5 +6,5 @@ const { myPosts } = usePosts()
 </script>
 
 <template>
-{{ myPosts }}
+{{ myPosts() }}
 </template>

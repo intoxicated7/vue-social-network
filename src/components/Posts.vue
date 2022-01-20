@@ -2,20 +2,24 @@
 import usePosts from '../hooks/sb-hooks-posts'
 import useAuth from '../hooks/sb-hooks-auth'
 import useLikes from '../hooks/sb-hooks-likes'
-import { ref } from 'vue'
+import { ref, defineAsyncComponent } from 'vue'
 
-const errMsg = ref<null | string>(null)
+const LikesCount = defineAsyncComponent(() => 
+  import('../components/LikesCount.vue')
+)
+
 const like = ref(null)
 
 const { getPosts } = usePosts()
-const { getLike } = useLikes()
+const { getLike, likesCount } = useLikes()
+
 const { user } = useAuth()
 
 const posts = await getPosts()
 
-const likeHandle = (user_id: string, post_id: number): void => {
-  getLike({ user_id, post_id })
 
+const likeHandle = async (user_id: string, post_id: number): Promise<void> => {
+  await getLike({ user_id, post_id })
 }
 </script>
 
@@ -30,7 +34,16 @@ const likeHandle = (user_id: string, post_id: number): void => {
         <div class="cursor-pointer bg-slate-800 rounded-xl px-3">
           <i v-if="like" class="fas fa-heart px-3 py-1"></i>
           <i v-else @click="likeHandle(user.id, post.id)" class="far fa-heart  py-1"></i>
-          <span class="pl-1">12</span>
+          <Suspense>
+            <template #default>
+              <LikesCount :post_id="post.id" />
+            </template>
+            <template #fallback>
+              <div class="text-white">
+                Загрузка...
+              </div>
+            </template>
+          </Suspense>
         </div>
         <i class="far fa-comment bg-slate-800 rounded-xl px-3 py-1 cursor-pointer"></i>
         <i class="fas fa-share bg-slate-800 rounded-xl px-3 py-1 cursor-pointer"></i>

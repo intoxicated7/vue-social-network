@@ -12,9 +12,14 @@ export default function useLikes() {
       ])
   }
 
-  const hasLikedStatus = async () => {
+  const likesCount = async (post_id: number) => {
+    const { data } = await db
+      .from('likes')
+      .select('*')
+      .match({ likeable_id: post_id })
     
+    return data
   }
 
-  return { getLike }
+  return { getLike, likesCount }
 }
