@@ -23,8 +23,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div>
-    <h2 v-if="friends">Друзья: {{ friends.length }}</h2>
+  <div class="bg-slate-700 rounded-md p-3">
+    <h2 class="font-semibold" v-if="friends">
+      Друзья <span class="text-gray-400">{{ friends.length }}</span>
+    </h2>
     <div v-for="friend in friends" :key="friend">
       {{ friend.friend_id }}
     </div>

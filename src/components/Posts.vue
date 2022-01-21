@@ -21,7 +21,7 @@ const likeHandle = async (user_id: string, post_id: number): Promise<void> => {
 </script>
 
 <template>
-  <div class="bg-slate-700 rounded-md my-3 p-2 text-white" v-for="post in posts" :key="post">
+  <div class="bg-slate-700 rounded-md my-3 p-3 text-white" v-for="post in posts" :key="post">
     <div class="flex items-center">
       <span class="text-zinc-400 text-sm">{{ post.created_at }}</span>
     </div>

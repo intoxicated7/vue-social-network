@@ -3,6 +3,7 @@ import useAuth from '../hooks/sb-hooks-auth'
 import NewPost from '@/components/NewPost.vue'
 import MyPosts from '@/components/MyPosts.vue'
 import FriendsList from '@/components/FriendsList.vue'
+import MyProfile from '@/components/MyProfile.vue'
 
 
 const { user } = useAuth()
@@ -10,11 +11,13 @@ const { user } = useAuth()
 
 
 <template>
-  <div class="bg-slate-800 rounded-md text-white mt-4 p-3">
-    {{ user.email }}
-    <NewPost />
-    <MyPosts :user_id="user.id" />
-    <FriendsList :user_id="user.id" />
+  <div class="text-white mt-4 p-3">
+    <div>
+      <MyProfile />
+      <FriendsList :user_id="user.id" />
+      <NewPost />
+      <MyPosts :user_id="user.id" />
+    </div>
   </div>
 </template>
 
