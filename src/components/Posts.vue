@@ -3,10 +3,7 @@ import usePosts from '../hooks/sb-hooks-posts'
 import useAuth from '../hooks/sb-hooks-auth'
 import useLikes from '../hooks/sb-hooks-likes'
 import { ref, defineAsyncComponent } from 'vue'
-
-const LikesCount = defineAsyncComponent(() => 
-  import('../components/LikesCount.vue')
-)
+import LikesCount from '@/components/LikesCount.vue'
 
 const like = ref(null)
 
@@ -31,19 +28,10 @@ const likeHandle = async (user_id: string, post_id: number): Promise<void> => {
     <div>{{ post.body }}</div>
     <div class="mt-2">
       <div class="flex items-center space-x-2">
-        <div class="cursor-pointer bg-slate-800 rounded-xl px-3">
+        <div class="flex items-center space-x-2 cursor-pointer bg-slate-800 rounded-xl px-3">
           <i v-if="like" class="fas fa-heart px-3 py-1"></i>
           <i v-else @click="likeHandle(user.id, post.id)" class="far fa-heart  py-1"></i>
-          <Suspense>
-            <template #default>
-              <LikesCount :post_id="post.id" />
-            </template>
-            <template #fallback>
-              <div class="text-white">
-                Загрузка...
-              </div>
-            </template>
-          </Suspense>
+          <LikesCount :post_id="post.id" />
         </div>
         <i class="far fa-comment bg-slate-800 rounded-xl px-3 py-1 cursor-pointer"></i>
         <i class="fas fa-share bg-slate-800 rounded-xl px-3 py-1 cursor-pointer"></i>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import useLikes from '../hooks/sb-hooks-likes'
 import usePosts from '../hooks/sb-hooks-posts'
 
@@ -10,12 +11,15 @@ const props = defineProps({
   post_id: Number
 })
 
-// console.log(likesCount(props.post_id))
+const like = ref()
 
+onMounted(async () => {
+  like.value = await likesCount(props.post_id)
+})
 </script>
 
 <template>
-  <div>
-    <!-- <span>{{ likesCount(props.post_id)  }}</span> -->
+  <div v-if="like">
+    {{ like.length }}
   </div>
 </template>

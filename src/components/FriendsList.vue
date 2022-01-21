@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted } from '@vue/runtime-core'
+import { ref } from 'vue'
 import useFriends from '../hooks/sb-hooks-friends'
 
 const { getFriends } = useFriends()
@@ -7,14 +9,20 @@ const props = defineProps({
   user_id: String
 })
 
-const friends = async (user_id: string) => {
-  return await getFriends(user_id)
-}
+const friends = ref()
 
-// console.log(friends(props.user_id))
+onMounted(async () => {
+  friends.value = await getFriends(props.user_id)
+})
+
 </script>
 
 <template>
-  <div>Друзья: {{ friends(props.user_id) }}</div>
-</template>
+  <div>
+    <h2 v-if="friends">Друзья: {{ friends.length }}</h2>
+    <div v-for="friend in friends" :key="friend">
+      {{ friend }}
+    </div>
+  </div>
 
+</template>
