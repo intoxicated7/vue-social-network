@@ -13,7 +13,7 @@ const { user } = useAuth()
   <div class="bg-slate-800 rounded-md text-white mt-4 p-3">
     {{ user.email }}
     <NewPost />
-    <MyPosts />
+    <MyPosts :user_id="user.id" />
     <FriendsList :user_id="user.id" />
   </div>
 </template>

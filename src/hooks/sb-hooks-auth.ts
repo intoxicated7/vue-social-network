@@ -31,11 +31,16 @@ export default function useAuth() {
     return !!user.value
   }
 
+  const getUser = async (user_id: string) => {
+
+  }
+
   return {
     user,
     login,
     logout,
     register,
     isLoggedIn,
+    getUser
   }
 }

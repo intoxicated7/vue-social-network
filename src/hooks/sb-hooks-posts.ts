@@ -24,10 +24,13 @@ export default function usePosts() {
       ])
   }
 
-  const myPosts = async () => {
-    return await db
+  const myPosts = async (user_id: string) => {
+    const { data } = await db
       .from('posts')
-      .select('id')
+      .select('*')
+      .match({ author_id: user_id })
+
+    return data
   }
 
   return { getPosts, addPost, myPosts }

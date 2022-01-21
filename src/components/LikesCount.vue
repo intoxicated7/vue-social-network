@@ -14,6 +14,10 @@ const props = defineProps({
 const like = ref()
 
 onMounted(async () => {
+  if (!props.post_id){
+    return;
+  }
+
   like.value = await likesCount(props.post_id)
 })
 </script>
